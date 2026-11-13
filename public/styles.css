@@ -1,0 +1,320 @@
+:root {
+  --navy: #06143f;
+  --navy-2: #0b2a8a;
+  --blue: #0b5cff;
+  --cyan: #20e3ff;
+  --green: #39ff6a;
+  --green-dark: #12853a;
+  --orange: #ff9f1a;
+  --orange-dark: #b35f00;
+  --red: #ff4d4d;
+  --red-dark: #a11d1d;
+  --yellow: #ffd23f;
+  --white: #f4f9ff;
+  --pixel: "Press Start 2P", ui-monospace, "Courier New", monospace;
+  --topbar-h: 76px;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--white);
+  background: var(--navy);
+  -webkit-font-smoothing: none;
+}
+
+body[data-view="game"] {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 2px, transparent 2px 4px),
+    radial-gradient(ellipse at 50% 0%, #123aa8 0%, var(--navy) 70%);
+  min-height: 100vh;
+}
+
+/* ---------- Botões estilo arcade ---------- */
+.btn {
+  font: inherit;
+  font-size: 13px;
+  color: #04131a;
+  border: 0;
+  padding: 16px 22px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 0 4px #000, 0 8px 0 4px #000;
+  transform: translateY(0);
+  transition: transform 0.05s;
+}
+.btn:active { transform: translateY(6px); box-shadow: 0 0 0 4px #000, 0 2px 0 4px #000; }
+.btn:focus-visible { outline: 4px solid var(--yellow); outline-offset: 6px; }
+.btn-green { background: var(--green); box-shadow: inset -4px -4px 0 var(--green-dark), inset 4px 4px 0 #b6ffc9, 0 0 0 4px #000, 0 8px 0 4px #000; }
+.btn-orange { background: var(--orange); box-shadow: inset -4px -4px 0 var(--orange-dark), inset 4px 4px 0 #ffd28a, 0 0 0 4px #000, 0 8px 0 4px #000; }
+.btn-red { background: var(--red); color: #fff; box-shadow: inset -3px -3px 0 var(--red-dark), inset 3px 3px 0 #ff9a9a, 0 0 0 3px #000, 0 6px 0 3px #000; }
+.btn-ghost { background: #1a3fb8; color: var(--white); box-shadow: inset -3px -3px 0 #0a1f66, inset 3px 3px 0 #5b86ff, 0 0 0 3px #000, 0 6px 0 3px #000; }
+.btn-small { font-size: 9px; padding: 11px 12px; }
+.btn-small:active { transform: translateY(4px); box-shadow: inset -3px -3px 0 rgba(0,0,0,.3), 0 0 0 3px #000, 0 2px 0 3px #000; }
+
+/* ---------- Tela de login ---------- */
+.scene {
+  --grass-dist: calc(max(100vh, 56.28vw) * 0.2327);
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 520px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 16px 16px calc(var(--grass-dist) * 0.25);
+  background: #0b6bff url("/assets/cenario.png") center bottom / cover no-repeat;
+  container-type: size;
+}
+@supports (width: 1cqw) {
+  .scene { --grass-dist: calc(max(100cqh, 56.28cqw) * 0.2327); }
+}
+
+.login-card {
+  position: relative;
+  z-index: 3;
+  width: min(100%, 560px);
+  padding: 30px 28px 24px;
+  text-align: center;
+  background: rgba(6, 20, 63, 0.92);
+  box-shadow:
+    0 0 0 4px #000,
+    0 0 0 8px var(--cyan),
+    0 0 0 12px #000,
+    0 18px 0 12px rgba(0, 0, 0, 0.35);
+}
+
+.eyebrow { margin: 0 0 14px; font-size: 10px; color: var(--cyan); letter-spacing: 2px; }
+
+.logo { margin: 0 0 18px; display: grid; gap: 6px; line-height: 1; }
+.logo-top {
+  font-size: clamp(16px, 4vw, 24px);
+  color: var(--white);
+  text-shadow: 3px 3px 0 #000;
+  letter-spacing: 6px;
+}
+.logo-main {
+  font-size: clamp(24px, 6.4vw, 40px);
+  color: var(--yellow);
+  text-shadow:
+    0 4px 0 var(--orange),
+    0 8px 0 #b35f00,
+    4px 4px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 0 -2px 0 #000;
+  letter-spacing: 1px;
+}
+
+.intro { margin: 0 0 22px; font-size: 11px; line-height: 1.9; color: #cfe0ff; }
+
+.google-button {
+  display: flex;
+  justify-content: center;
+  min-height: 44px;
+  margin-bottom: 14px;
+}
+
+.status {
+  min-height: 2.6em;
+  margin-bottom: 8px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--green);
+}
+
+.press-start { margin: 6px 0 14px; font-size: 10px; color: var(--yellow); animation: blink 1.1s steps(2) infinite; }
+.footnote { margin: 0; font-size: 8px; line-height: 1.8; color: #8fb0f0; }
+
+@keyframes blink { 50% { opacity: 0; } }
+.blink { animation: blink 1s steps(2) infinite; }
+
+/* ---------- Barra superior ---------- */
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  min-height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 20px;
+  background: linear-gradient(#0d3bc4, #0a2a8e);
+  box-shadow: 0 4px 0 #000, 0 8px 0 var(--cyan), 0 12px 0 #000;
+}
+
+.brand { font-size: 13px; color: var(--white); text-shadow: 2px 2px 0 #000; white-space: nowrap; }
+.brand span { color: var(--yellow); }
+
+.player-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 6px 14px 6px 6px;
+  background: rgba(6, 20, 63, 0.75);
+  box-shadow: 0 0 0 3px #000, 0 0 0 5px rgba(32, 227, 255, 0.5);
+}
+.player-chip img {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  object-fit: cover;
+  image-rendering: auto;
+  box-shadow: 0 0 0 3px #000, 0 0 0 5px var(--yellow);
+}
+.player-info { display: grid; gap: 3px; min-width: 0; }
+.player-info strong { font-size: 11px; font-weight: normal; color: var(--white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.player-info small { font-size: 8px; color: #9ec0ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.badge { font-size: 8px; color: var(--green); display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; background: var(--green); box-shadow: 0 0 0 2px #000; animation: blink 1.4s steps(2) infinite; }
+
+.topbar-actions { display: flex; gap: 14px; align-items: center; }
+
+/* ---------- Tela do jogo ---------- */
+.arcade {
+  padding: calc(var(--topbar-h) + 30px) 16px 32px;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.stage {
+  position: relative;
+  width: min(1040px, 100%);
+  aspect-ratio: 16 / 9;
+  background: #0b5cff;
+  box-shadow:
+    0 0 0 4px #000,
+    0 0 0 8px var(--cyan),
+    0 0 0 12px #000,
+    0 22px 0 12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+.stage canvas { display: block; width: 100%; height: 100%; }
+
+.help { margin: 14px 0 0; max-width: 900px; text-align: center; font-size: 9px; line-height: 2; color: #9ec0ff; }
+.help b { color: var(--yellow); }
+.rotate-hint { display: none; margin: 0; font-size: 9px; color: var(--yellow); text-align: center; }
+
+/* HUD */
+.hud {
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding: clamp(6px, 1.4%, 14px) clamp(8px, 2%, 20px) clamp(14px, 3%, 28px);
+  background: linear-gradient(rgba(6, 20, 63, 0.75), rgba(6, 20, 63, 0));
+  pointer-events: none;
+  font-size: clamp(7px, 1.35vw, 13px);
+  text-shadow: 2px 2px 0 #000;
+}
+.hud-item { display: grid; gap: 4px; }
+.hud-label { color: var(--cyan); }
+.hud-value { color: var(--white); }
+.hearts { display: inline-flex; gap: 4px; }
+.heart { width: 1.9em; height: 1.7em; image-rendering: pixelated; filter: drop-shadow(2px 2px 0 #000); }
+.heart.lost { opacity: 0.25; filter: grayscale(1) drop-shadow(2px 2px 0 #000); }
+.hud-progress { min-width: 22%; }
+.bar { display: block; height: 1.1em; background: rgba(0, 0, 0, 0.55); box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(255, 255, 255, 0.6); }
+.bar i { display: block; height: 100%; width: 0; background: repeating-linear-gradient(90deg, var(--green) 0 6px, #1fbf4d 6px 8px); }
+
+/* Painéis sobre o jogo */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  background: rgba(4, 12, 40, 0.55);
+}
+.panel {
+  width: min(92%, 520px);
+  max-height: 96%;
+  overflow: auto;
+  padding: clamp(14px, 3vw, 26px);
+  text-align: center;
+  background: rgba(6, 20, 63, 0.96);
+  box-shadow: 0 0 0 4px #000, 0 0 0 8px var(--yellow), 0 0 0 12px #000;
+}
+.panel-title { margin: 0 0 14px; font-size: clamp(14px, 3vw, 24px); line-height: 1.4; color: var(--white); text-shadow: 3px 3px 0 #000; }
+.panel-title span { color: var(--yellow); }
+.panel-text { margin: 0 0 14px; font-size: clamp(8px, 1.5vw, 11px); line-height: 1.9; color: #cfe0ff; }
+.panel-hint { margin: 16px 0 0; font-size: 8px; color: #8fb0f0; }
+.panel-win { box-shadow: 0 0 0 4px #000, 0 0 0 8px var(--green), 0 0 0 12px #000; }
+.panel-win .panel-title { color: var(--green); }
+.panel-lose { box-shadow: 0 0 0 4px #000, 0 0 0 8px var(--red), 0 0 0 12px #000; }
+.panel-lose .panel-title { color: var(--red); }
+
+.controls { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 8px; font-size: clamp(8px, 1.5vw, 10px); color: #cfe0ff; }
+kbd {
+  display: inline-block;
+  min-width: 2.2em;
+  margin: 0 3px;
+  padding: 4px 6px;
+  font: inherit;
+  color: #04131a;
+  background: var(--white);
+  box-shadow: inset -2px -2px 0 #9fb4d6, 0 0 0 2px #000;
+}
+
+.results { display: grid; gap: 8px; margin: 0 0 18px; }
+.results div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; background: rgba(255, 255, 255, 0.06); font-size: clamp(8px, 1.5vw, 11px); }
+.results dt { color: var(--cyan); }
+.results dd { margin: 0; color: var(--yellow); }
+
+/* Controles de toque */
+.touch { display: none; position: absolute; inset: auto 0 0 0; z-index: 4; padding: 12px; justify-content: space-between; align-items: flex-end; pointer-events: none; }
+.touch-group { display: flex; gap: 12px; }
+.touch-btn {
+  pointer-events: auto;
+  width: 64px;
+  height: 64px;
+  font: inherit;
+  font-size: 18px;
+  color: var(--white);
+  background: rgba(6, 20, 63, 0.55);
+  border: 0;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.7), 0 0 0 5px rgba(0, 0, 0, 0.6);
+  touch-action: none;
+}
+.touch-btn.pressed { background: rgba(32, 227, 255, 0.55); }
+.touch-jump { width: 104px; font-size: 11px; background: rgba(57, 255, 106, 0.4); }
+
+@media (pointer: coarse) {
+  .touch { display: flex; }
+  .help { display: none; }
+}
+@media (pointer: coarse) and (orientation: portrait) {
+  .rotate-hint { display: block; }
+}
+
+/* Telas estreitas */
+@media (max-width: 760px) {
+  :root { --topbar-h: 118px; }
+  .topbar { flex-wrap: wrap; padding: 8px 12px; gap: 8px; }
+  .brand { font-size: 10px; }
+  .topbar-actions { gap: 10px; margin-left: auto; }
+  .player-chip { order: 3; flex: 1 1 100%; }
+  .player-info small { display: none; }
+  .arcade { padding-inline: 10px; }
+  .stage { box-shadow: 0 0 0 3px #000, 0 0 0 6px var(--cyan), 0 0 0 9px #000; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press-start, .dot, .blink { animation: none; }
+}

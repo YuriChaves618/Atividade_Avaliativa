@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Super Celso Bros — entre com sua conta Google e ajude o Celso a chegar à bandeira.">
+    <meta name="theme-color" content="#0b5cff">
+    <title>Super Celso Bros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body data-view="login">
+
+    <!-- Barra superior: aparece só depois do login -->
+    <header class="topbar" id="topbar" hidden>
+      <div class="brand">SUPER <span>CELSO</span> BROS</div>
+      <div class="player-chip" id="player-chip">
+        <img id="avatar" alt="" referrerpolicy="no-referrer" hidden>
+        <div class="player-info">
+          <span class="badge"><i class="dot"></i>CONECTADO COM GOOGLE</span>
+          <strong id="name"></strong>
+          <small id="email"></small>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button id="mute" class="btn btn-small btn-ghost" type="button" aria-pressed="false">SOM: LIGADO</button>
+        <button id="logout" class="btn btn-small btn-red" type="button">ENCERRAR SESSÃO</button>
+      </div>
+    </header>
+
+    <!-- Tela de login -->
+    <section class="scene" id="login-screen">
+      <main class="login-card">
+        <p class="eyebrow">★ 1 JOGADOR ★</p>
+        <h1 class="logo"><span class="logo-top">SUPER</span><span class="logo-main">CELSO BROS</span></h1>
+        <p class="intro">Entre com sua conta Google para ajudar o Celso a juntar dinheiro e chegar à bandeira!</p>
+
+        <div id="google-button" class="google-button"></div>
+        <div id="status" class="status" role="status" aria-live="polite">Carregando…</div>
+
+        <p class="press-start">INSIRA SUA CONTA PARA COMEÇAR</p>
+        <p class="footnote">A senha da sua Conta Google nunca é solicitada por esta aplicação.</p>
+        <p class="footnote version">versão 2.0</p>
+      </main>
+    </section>
+
+    <!-- Tela do jogo -->
+    <section class="arcade" id="game-screen" hidden>
+      <div class="stage" id="stage">
+        <canvas id="game" width="960" height="540" aria-label="Super Celso Bros"></canvas>
+
+        <div class="hud" id="hud" hidden>
+          <div class="hud-item"><span class="hud-label">DINHEIRO</span><span class="hud-value" id="hud-money">R$ 0</span></div>
+          <div class="hud-item"><span class="hud-label">VIDAS</span><span class="hud-value hearts" id="hud-lives"></span></div>
+          <div class="hud-item hud-progress"><span class="hud-label">CAMINHO</span><span class="bar"><i id="hud-bar"></i></span></div>
+          <div class="hud-item"><span class="hud-label">TEMPO</span><span class="hud-value" id="hud-time">00:00</span></div>
+        </div>
+
+        <div class="overlay" id="overlay-loading">
+          <div class="panel">
+            <p class="panel-text blink">CARREGANDO…</p>
+            <button class="btn btn-orange" id="btn-reload" type="button" hidden>↻ RECARREGAR</button>
+          </div>
+        </div>
+
+        <div class="overlay" id="overlay-start" hidden>
+          <div class="panel">
+            <h2 class="panel-title">SUPER <span>CELSO</span> BROS</h2>
+            <p class="panel-text">Pule nos blocos, junte dinheiro, fuja dos bugs e vírus e alcance a bandeira!</p>
+            <ul class="controls">
+              <li><kbd>←</kbd><kbd>→</kbd> ou <kbd>A</kbd><kbd>D</kbd> andar</li>
+              <li><kbd>ESPAÇO</kbd> ou <kbd>↑</kbd> pular</li>
+            </ul>
+            <button class="btn btn-green" id="btn-start" type="button">▶ INICIAR</button>
+            <p class="panel-hint">ou aperte ENTER</p>
+          </div>
+        </div>
+
+        <div class="overlay" id="overlay-win" hidden>
+          <div class="panel panel-win">
+            <h2 class="panel-title">FASE COMPLETA!</h2>
+            <p class="panel-text">O Celso chegou à bandeira!</p>
+            <dl class="results">
+              <div><dt>DINHEIRO</dt><dd id="win-money">R$ 0</dd></div>
+              <div><dt>TEMPO</dt><dd id="win-time">00:00</dd></div>
+              <div><dt>VIDAS</dt><dd id="win-lives">3</dd></div>
+            </dl>
+            <button class="btn btn-green" id="btn-again" type="button">↻ JOGAR DE NOVO</button>
+          </div>
+        </div>
+
+        <div class="overlay" id="overlay-lose" hidden>
+          <div class="panel panel-lose">
+            <h2 class="panel-title">FIM DE JOGO</h2>
+            <p class="panel-text">Os bugs venceram desta vez…</p>
+            <dl class="results">
+              <div><dt>DINHEIRO</dt><dd id="lose-money">R$ 0</dd></div>
+              <div><dt>TEMPO</dt><dd id="lose-time">00:00</dd></div>
+            </dl>
+            <button class="btn btn-orange" id="btn-retry" type="button">↻ TENTAR DE NOVO</button>
+          </div>
+        </div>
+
+        <!-- Controles de toque (aparecem só em celular/tablet) -->
+        <div class="touch" id="touch">
+          <div class="touch-group">
+            <button type="button" class="touch-btn" data-key="left" aria-label="Esquerda">◀</button>
+            <button type="button" class="touch-btn" data-key="right" aria-label="Direita">▶</button>
+          </div>
+          <button type="button" class="touch-btn touch-jump" data-key="jump" aria-label="Pular">PULAR</button>
+        </div>
+      </div>
+
+      <p class="rotate-hint">Gire o celular para jogar melhor ↻</p>
+      <p class="help">Setas ou A/D para andar · Espaço para pular · Bata nos blocos <b>?</b> por baixo para pegar dinheiro</p>
+    </section>
+  </body>
+</html>
