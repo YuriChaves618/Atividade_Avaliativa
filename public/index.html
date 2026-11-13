@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="icon" type="image/svg+xml" href="/coin.svg">
     <link rel="stylesheet" href="/styles.css">
     <script src="/app.js" defer></script>
   </head>
@@ -34,7 +35,7 @@
     <!-- Tela de login -->
     <section class="scene" id="login-screen">
       <main class="login-card">
-        <p class="eyebrow">★ 1 JOGADOR ★</p>
+        <p class="eyebrow"><i class="coin coin-lg" aria-hidden="true"></i>1 JOGADOR<i class="coin coin-lg" aria-hidden="true"></i></p>
         <h1 class="logo"><span class="logo-top">SUPER</span><span class="logo-main">CELSO BROS</span></h1>
         <p class="intro">Entre com sua conta Google para ajudar o Celso a juntar dinheiro e chegar à bandeira!</p>
 
@@ -53,7 +54,7 @@
         <canvas id="game" width="960" height="540" aria-label="Super Celso Bros"></canvas>
 
         <div class="hud" id="hud" hidden>
-          <div class="hud-item"><span class="hud-label">DINHEIRO</span><span class="hud-value" id="hud-money">R$ 0</span></div>
+          <div class="hud-item"><span class="hud-label">DINHEIRO</span><span class="hud-value money"><i class="coin" aria-hidden="true"></i><span id="hud-money">R$ 0</span></span></div>
           <div class="hud-item"><span class="hud-label">VIDAS</span><span class="hud-value hearts" id="hud-lives"></span></div>
           <div class="hud-item hud-progress"><span class="hud-label">CAMINHO</span><span class="bar"><i id="hud-bar"></i></span></div>
           <div class="hud-item"><span class="hud-label">TEMPO</span><span class="hud-value" id="hud-time">00:00</span></div>
@@ -84,7 +85,7 @@
             <h2 class="panel-title">FASE COMPLETA!</h2>
             <p class="panel-text">O Celso chegou à bandeira!</p>
             <dl class="results">
-              <div><dt>DINHEIRO</dt><dd id="win-money">R$ 0</dd></div>
+              <div><dt>DINHEIRO</dt><dd class="money"><i class="coin" aria-hidden="true"></i><span id="win-money">R$ 0</span></dd></div>
               <div><dt>TEMPO</dt><dd id="win-time">00:00</dd></div>
               <div><dt>VIDAS</dt><dd id="win-lives">3</dd></div>
             </dl>
@@ -97,7 +98,7 @@
             <h2 class="panel-title">FIM DE JOGO</h2>
             <p class="panel-text">Os bugs venceram desta vez…</p>
             <dl class="results">
-              <div><dt>DINHEIRO</dt><dd id="lose-money">R$ 0</dd></div>
+              <div><dt>DINHEIRO</dt><dd class="money"><i class="coin" aria-hidden="true"></i><span id="lose-money">R$ 0</span></dd></div>
               <div><dt>TEMPO</dt><dd id="lose-time">00:00</dd></div>
             </dl>
             <button class="btn btn-orange" id="btn-retry" type="button">↻ TENTAR DE NOVO</button>

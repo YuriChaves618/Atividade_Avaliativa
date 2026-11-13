@@ -208,6 +208,30 @@ body[data-view="game"] {
 .help b { color: var(--yellow); }
 .rotate-hint { display: none; margin: 0; font-size: 9px; color: var(--yellow); text-align: center; }
 
+/* Moeda (pixel art) */
+.coin {
+  display: inline-block;
+  flex: none;
+  width: 0.8em;
+  height: 1.12em;
+  margin-right: 0.45em;
+  vertical-align: -0.2em;
+  background: url("/coin.svg") center / contain no-repeat;
+  image-rendering: pixelated;
+  filter: drop-shadow(2px 2px 0 #000);
+  animation: coin-spin 1.1s steps(1) infinite;
+}
+.coin-lg { width: 1.2em; height: 1.68em; margin: 0 0.7em; vertical-align: -0.45em; }
+.money { display: inline-flex; align-items: center; justify-content: flex-end; }
+.hud-value.money { justify-content: flex-start; }
+@keyframes coin-spin {
+  0%   { transform: scaleX(1); }
+  20%  { transform: scaleX(0.6); }
+  40%  { transform: scaleX(0.15); }
+  60%  { transform: scaleX(0.15); }
+  80%  { transform: scaleX(0.6); }
+}
+
 /* HUD */
 .hud {
   position: absolute;
@@ -316,5 +340,5 @@ kbd {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .press-start, .dot, .blink { animation: none; }
+  .press-start, .dot, .blink, .coin { animation: none; }
 }
