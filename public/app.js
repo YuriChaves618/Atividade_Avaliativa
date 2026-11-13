@@ -36,7 +36,11 @@ let expiredRetries = 0;
 async function getJson(url, options) {
   const response = await fetch(url, { credentials: 'same-origin', ...options });
   const data = response.status === 204 ? null : await response.json().catch(() => null);
-  if (!response.ok) throw new Error(data?.error || 'Ocorreu um erro.');
+  if (!response.ok) {
+    const error = new Error(data?.error || 'Ocorreu um erro.');
+    error.status = response.status;
+    throw error;
+  }
   return data;
 }
 
@@ -215,14 +219,27 @@ els.mute.addEventListener('click', () => {
 });
 
 // ---------- Login com Google ----------
+async function postGoogleCredential(credential) {
+  return getJson('/api/auth/google', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+    body: JSON.stringify({ credential })
+  });
+}
+
 async function onGoogleCredential(response) {
   els.status.textContent = 'Validando seu login…';
   try {
-    const result = await getJson('/api/auth/google', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
-      body: JSON.stringify({ credential: response.credential })
-    });
+    let result;
+    try {
+      result = await postGoogleCredential(response.credential);
+    } catch (error) {
+      // 403 = token de segurança (CSRF) desatualizado, p.ex. página aberta em duas abas ou
+      // recarregada rápido. Pegamos um novo e tentamos de novo uma vez, sem o usuário dar F5.
+      if (error.status !== 403) throw error;
+      csrfToken = (await getJson('/api/csrf')).csrfToken;
+      result = await postGoogleCredential(response.credential);
+    }
     csrfToken = result.csrfToken;
     els.status.textContent = '';
     showGameScreen(result.user);
